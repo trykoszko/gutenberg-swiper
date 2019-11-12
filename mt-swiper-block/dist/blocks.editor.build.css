@@ -1,1 +1,34 @@
-.wp-block-cgb-block-cgb{color:#292929;background:#bada55;border:0.2rem solid #292929;padding:2rem}
+/**
+ * #.# Common SCSS
+ *
+ * Can include things like variables and mixins
+ * that are used across the project.
+*/
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+.mt-slider__delete {
+  position: absolute;
+  top: 5px;
+  right: 11px;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  margin: 0;
+  font-size: 35px;
+  cursor: pointer;
+  background: transparent;
+  border: none; }
+
+.mt-inspectorcontrols-btn {
+  padding: 8px 14px;
+  -webkit-box-shadow: lightgrey 0 0 5px;
+          box-shadow: lightgrey 0 0 5px;
+  border-radius: 8px;
+  border: 1px solid lightgrey; }
+  .mt-inspectorcontrols-btn:hover {
+    -webkit-box-shadow: lightgrey 0 0 20px;
+            box-shadow: lightgrey 0 0 20px; }

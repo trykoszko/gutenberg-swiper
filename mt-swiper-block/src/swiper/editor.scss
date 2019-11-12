@@ -1,0 +1,40 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+.mt-slider {
+
+	&__delete {
+		position: absolute;
+		top: 5px;
+		right: 11px;
+
+		width: 35px;
+		height: 35px;
+
+		padding: 0;
+		margin: 0;
+
+		font-size: 35px;
+
+		cursor: pointer;
+
+		background: transparent;
+
+		border: none;
+	}
+}
+
+.mt-inspectorcontrols-btn {
+	padding: 8px 14px;
+	box-shadow: lightgrey 0 0 5px;
+	border-radius: 8px;
+	border: 1px solid lightgrey;
+
+	&:hover {
+		box-shadow: lightgrey 0 0 20px;
+	}
+}
