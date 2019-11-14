@@ -8,9 +8,7 @@ if (window.Swiper === undefined || Swiper === undefined) {
 			Array.from(sliders).forEach((slider, index) => {
 				const mtSwiperBlock = new Swiper(sliders[index], {
 					loop: false,
-					autoplay: true,
-					observer: true,
-					observeSlideChildren: true
+					autoplay: false
 				})
 			})
 		}

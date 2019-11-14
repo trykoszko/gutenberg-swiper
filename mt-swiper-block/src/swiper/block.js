@@ -37,8 +37,8 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 	},
 
 	edit: class extends Component {
-		constructor() {
-			super(...arguments)
+		constructor(...args) {
+			super(...args)
 			this.addSlide = this.addSlide.bind(this)
 			this.removeSlide = this.removeSlide.bind(this)
 			this.toggleImageTitles = this.toggleImageTitles.bind(this)
@@ -47,7 +47,7 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 
 		initSwipers() {
 			if (window.Swiper === undefined || Swiper === undefined) {
-				console.error('MT Swiper Block error: Swiper is defined')
+				console.error('MT Swiper Block error: Swiper is not defined')
 			} else {
 				const mtSwiperBlock = new Swiper(this.sliderRef.current, {
 					loop: false,
@@ -67,10 +67,14 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 		}
 
 		removeSlide(mediaId) {
-			const filteredImages = this.props.attributes.images.filter(image => {
-				return image.id !== mediaId
-			})
-			this.props.setAttributes({ images: filteredImages })
+			const {
+				setAttributes,
+				attributes: {
+					images
+				}
+			} = this.props
+			const filteredImages = images.filter(image => image.id !== mediaId)
+			setAttributes({ images: filteredImages })
 		}
 
 		toggleImageTitles(bool) {
@@ -87,7 +91,7 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 							<PanelRow>
 								<MediaUploadCheck>
 									<MediaUpload
-										onSelect={ ( media ) => this.addSlide( media ) }
+										onSelect={ this.addSlide }
 										render={ ( { open } ) => (
 											<Button className="mt-inspectorcontrols-btn" onClick={ open }>
 												{ __('Add a slide') }
@@ -101,15 +105,23 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 							<ToggleControl
 								label="Show slide images' titles?"
 								checked={ showImageTitles }
-								onChange={ e => this.toggleImageTitles(e) }
+								onChange={ this.toggleImageTitles }
 							/>
 						</PanelBody>
 					</InspectorControls>
 					<div className="swiper-container js-mt-swiper-block c-mt-swiper-block" ref={ this.sliderRef }>
 						<div className="swiper-wrapper">
-							{ images.length > 0 ? images.map(image => {
-								return <SwiperSlide isAdmin={ true } imgUrl={ image.url } imgId={ image.id } imgCaption={ image.title } showCaptions={ showImageTitles } removeSlide={ this.removeSlide } />
-							}) : __('Please edit this block and add some images first!') }
+							{ images.length > 0 ? images.map(({ title, id, url }) => (
+								<SwiperSlide
+									key={ id }
+									isAdmin
+									imgUrl={ url }
+									imgId={ id }
+									imgCaption={ title }
+									showCaptions={ showImageTitles }
+									removeSlide={ this.removeSlide }
+								/>
+							)) : __('Please edit this block and add some images first!') }
 						</div>
 					</div>
 				</div>
@@ -123,9 +135,14 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 		return (
 			<div className="swiper-container js-mt-swiper-block mt-slider">
 				<div className="swiper-wrapper mt-slider__wrapper">
-					{ images.length > 0 ? images.map(image => {
-						return <SwiperSlide isAdmin={ false } imgUrl={ image.url } imgCaption={ image.title } showCaptions={ showImageTitles } />
-					}) : __('Please edit this block and add some images first!') }
+					{ images.length > 0 ? images.map(({ url, title }) => (
+						<SwiperSlide
+							isAdmin={ false }
+							imgUrl={ url }
+							imgCaption={ title }
+							showCaptions={ showImageTitles }
+						/>
+					)) : __('Please edit this block and add some images first!') }
 				</div>
 			</div>
 		)
