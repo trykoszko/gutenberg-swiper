@@ -103,7 +103,7 @@ registerBlockType( 'cgb/block-mt-swiper-block', {
 						</PanelBody>
 						<PanelBody title={ __('Carousel options') }>
 							<ToggleControl
-								label="Show slide images' titles?"
+								label={ __('Show images\' titles?') }
 								checked={ showImageTitles }
 								onChange={ this.toggleImageTitles }
 							/>
